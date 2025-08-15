@@ -16,8 +16,10 @@ if ('IntersectionObserver' in window){
     entries.forEach(entry=>{
       if (entry.isIntersecting){
         const v = entry.target;
-        const s = v.querySelector('source[data-src]');
-        if (s && !s.src){ s.src = s.dataset.src; v.load(); }
+        const sources = v.querySelectorAll('source[data-src]');
+        let updated = false;
+        sources.forEach(s=>{ if(!s.src){ s.src = s.dataset.src; updated = true; }});
+        if(updated){ v.load(); }
         io.unobserve(v);
       }
     });

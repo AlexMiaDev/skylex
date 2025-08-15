@@ -15,7 +15,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{height:100%}
+html,body{height:100%; overflow-x:hidden}
 body{
   margin:0;
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
@@ -213,3 +213,15 @@ p{margin:0 0 10px; color:var(--muted)}
     left: 10px;
   }
 }
+
+
+/* Responsive fix for why-grid to avoid horizontal scroll */
+@media (max-width: 980px){
+  .why-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px){
+  .why-grid{ grid-template-columns: 1fr; }
+}
+
+
+img, video { max-width: 100%; height: auto; }
