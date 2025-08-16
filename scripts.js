@@ -116,41 +116,29 @@ if (heroVideo && !reduceMotion){
 
 
 
-// Minimal hero autoplay helper (no format changes)
+// ===== iOS autoplay fallback: tap to play if blocked =====
 document.addEventListener('DOMContentLoaded', ()=>{
   const v = document.querySelector('.hero-video');
   if (!v) return;
-  v.muted = true;
-  v.playsInline = true;
-  // iOS compatibility attribute
-  v.setAttribute('webkit-playsinline', '');
-  const tryPlay = () => { if (v.paused) v.play().catch(()=>{}); };
-  if (v.readyState >= 2) tryPlay();
-  else v.addEventListener('canplay', tryPlay, { once: true });
-});
-
-
-// ===== Scrollspy for active nav links =====
-document.addEventListener('DOMContentLoaded', ()=>{
-  const links = Array.from(document.querySelectorAll('.nav-menu a[href^="#"]'));
-  const map = new Map();
-  links.forEach(a=>{
-    const id = a.getAttribute('href').slice(1);
-    const sec = document.getElementById(id);
-    if (sec) map.set(sec, a);
-  });
-  if (map.size === 0) return;
-
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      const a = map.get(e.target);
-      if (!a) return;
-      if (e.isIntersecting){
-        links.forEach(l=>l.classList.remove('active'));
-        a.classList.add('active');
+  const ua = navigator.userAgent || '';
+  const isiOS = /iP(hone|ad|od)/.test(ua);
+  // After a short delay, if still paused on iOS, show a tap overlay
+  setTimeout(()=>{
+    if (isiOS && v.paused){
+      let overlay = document.getElementById('tapToPlay');
+      if (!overlay){
+        overlay = document.createElement('button');
+        overlay.id = 'tapToPlay';
+        overlay.className = 'tap-to-play';
+        overlay.type = 'button';
+        overlay.textContent = '▶︎ Play';
+        const hero = document.getElementById('top');
+        if (hero){ hero.appendChild(overlay); }
+        overlay.addEventListener('click', ()=>{
+          v.play().catch(()=>{});
+          overlay.remove();
+        });
       }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
-
-  map.forEach((_, sec)=>io.observe(sec));
+    }
+  }, 700);
 });
