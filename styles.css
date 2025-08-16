@@ -536,3 +536,79 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 html{
   scroll-behavior: smooth;
 }
+
+/* Contact quick links emphasis */
+.contact-quick .quick-link{
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+/* ===== Fixed Topbar + Sticky Nav with Contact Icons ===== */
+:root{
+  --topbar-h: 32px;
+  --nav-h: 68px;
+}
+
+body{ padding-top: calc(var(--topbar-h) + var(--nav-h)); }
+
+.topbar-fixed{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--topbar-h);
+  background: #0f172a;
+  color: #cfefff;
+  z-index: 1001;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.topbar-fixed .topbar-inner{
+  width: min(1120px, 92%);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  letter-spacing: .2px;
+}
+
+.nav{
+  position: fixed;
+  top: var(--topbar-h);
+  left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 1000;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(160%) blur(8px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.nav-inner{
+  height: var(--nav-h);
+}
+.nav-contacts{
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.nav-contacts .ico{
+  display: inline-grid;
+  place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+  color: #0b1220;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.nav-contacts .ico:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.10);
+  border-color: rgba(0,188,212,.35);
+}
+
+@media (max-width: 860px){
+  :root{ --nav-h: 60px; --topbar-h: 32px; }
+  .nav-contacts .ico{ width: 34px; height: 34px; border-radius: 10px; }
+}
