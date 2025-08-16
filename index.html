@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Urbanist:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-  <link rel="preload" as="video" href="DroneBridge.mp4" type="video/mp4">
+  <link rel="preload" as="video" href="MainVIdeo.mp4" type="video/mp4">
   <link rel="preload" as="image" href="skylex-logo.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚁</text></svg>">
   <meta property="og:title" content="FPV Drone Tours — Miami" />
@@ -48,6 +48,7 @@
         <img loading="eager" decoding="async" src="skylex-logo.png" width="40" height="40" alt="FPV drone logo">
         <span>FPV Drone Tours</span>
       </a>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">🌙</button>
       <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu" aria-label="Menu">
         <span class="bar"></span><span class="bar"></span><span class="bar"></span>
       </button>
@@ -63,10 +64,8 @@
   </nav>
 
   <header id="top" class="hero">
-  <video class="hero-video" autoplay muted playsinline loop poster="avata2.webp">
-  <source src="DroneBridge.webm" type="video/webm">
-<source src="DroneBridge_h264.mp4" type="video/mp4">
-<source src="DroneBridge.mp4" type="video/mp4">
+  <video class="hero-video" autoplay muted playsinline loop poster="avata2.webp" preload="auto">
+    <source src="MainVIdeo.mp4" type="video/mp4">
 </video>
   <div class="hero-overlay"></div>
   <div class="container hero-content reveal">
@@ -90,33 +89,24 @@
       <div class="cards">
         <article class="card reveal">
           <div class="thumb">
-            <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">
-              <source data-src="CaSTLEdRONE.webm" type="video/webm">
-              <source data-src="CaSTLEdRONE_h264.mp4" type="video/mp4">
-              <source data-src="CaSTLEdRONE.mp4" type="video/mp4">
-            </video>
+            <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">              <source data-src="CaSTLEdRONE.mp4" type="video/mp4">
+</video>
           </div>
           <h3>Indoor Tours</h3>
           <p>One-take walkthroughs for venues, gyms, clubs and offices. Clear storytelling with safe, ducted setups.</p>
         </article>
         <article class="card reveal">
           <div class="thumb">
-            <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">
-              <source data-src="DroneBridge.webm" type="video/webm">
-              <source data-src="DroneBridge_h264.mp4" type="video/mp4">
-              <source data-src="DroneBridge.mp4" type="video/mp4">
-            </video>
+            <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">              <source data-src="DroneBridge.mp4" type="video/mp4">
+</video>
           </div>
           <h3>Real Estate</h3>
           <p>Show layout, flow and highlights in a single smooth FPV route—indoors + outdoors.</p>
         </article>
         <article class="card reveal">
           <div class="thumb">
-            <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">
-              <source data-src="DroneBridge.webm" type="video/webm">
-              <source data-src="DroneBridge_h264.mp4" type="video/mp4">
-              <source data-src="DroneBridge.mp4" type="video/mp4">
-            </video>
+            <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">              <source data-src="DroneBridge.mp4" type="video/mp4">
+</video>
           </div>
           <h3>Events & Social</h3>
           <p>High-energy edits for festivals, races and brand activations. Vertical + horizontal delivery.</p>
@@ -141,19 +131,13 @@
       <h2 class="underline-anim">Recent work</h2>
       <div class="grid">
         <figure class="card media reveal">
-          <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">
-            <source data-src="DroneBridge.webm" type="video/webm">
-              <source data-src="DroneBridge_h264.mp4" type="video/mp4">
-              <source data-src="DroneBridge.mp4" type="video/mp4">
-          </video>
+          <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">              <source data-src="DroneBridge.mp4" type="video/mp4">
+</video>
           <figcaption>Bridge fly-through (FPV)</figcaption>
         </figure>
         <figure class="card media reveal">
-          <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">
-            <source data-src="CaSTLEdRONE.webm" type="video/webm">
-              <source data-src="CaSTLEdRONE_h264.mp4" type="video/mp4">
-              <source data-src="CaSTLEdRONE.mp4" type="video/mp4">
-          </video>
+          <video class="lazy-thumb" muted playsinline preload="none" poster="avata2.webp">              <source data-src="CaSTLEdRONE.mp4" type="video/mp4">
+</video>
           <figcaption>Indoor castle tour</figcaption>
         </figure>
         <figure class="card media reveal">

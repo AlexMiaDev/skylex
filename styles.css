@@ -15,7 +15,7 @@
 }
 
 *{box-sizing:border-box}
-html,body{height:100%; overflow-x:hidden}
+html,body{height:100%}
 body{
   margin:0;
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
@@ -77,8 +77,8 @@ p{margin:0 0 10px; color:var(--muted)}
 .btn-ghost:hover{background:#f3f6f9;box-shadow:var(--shadow)}
 
 /* Hero */
-.hero{position:relative;min-height:72vh;display:grid;place-items:center;overflow:hidden;background:#eef7fb;will-change:transform}
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(102%) saturate(108%) brightness(100%);transform:translateY(0)}
+
+
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.25))}
 .hero-content{position:relative;text-align:center;padding:48px 0}
 .hero-ctas{display:flex;gap:12px;justify-content:center;margin:14px 0 10px}
@@ -166,13 +166,13 @@ p{margin:0 0 10px; color:var(--muted)}
 }
 @media (max-width: 640px){
   .cards,.grid,.pricing,.steps{grid-template-columns:1fr}
-  .hero{min-height:64vh}
+  
   .hero-bullets{font-size:13px}
 }
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce){
-  .hero-video{transform:none !important}
+  
   .reveal{opacity:1 !important; transform:none !important}
   .underline-anim::after{transition:none}
 }
@@ -215,7 +215,13 @@ p{margin:0 0 10px; color:var(--muted)}
 }
 
 
-/* Responsive fix for why-grid to avoid horizontal scroll */
+/* --- Anti-horizontal-scroll safety net --- */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Ensure media never exceed container width */
+img, video { max-width: 100%; height: auto; display: block; }
+
+/* Responsive fix for why-grid */
 @media (max-width: 980px){
   .why-grid{ grid-template-columns: repeat(2, 1fr); }
 }
@@ -224,4 +230,396 @@ p{margin:0 0 10px; color:var(--muted)}
 }
 
 
-img, video { max-width: 100%; height: auto; }
+/* --- Hero section aspect ratio fix --- */
+.hero {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  min-height: auto;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #eef7fb;
+}
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* keep video fully covering but control block proportions */
+  aspect-ratio: 16 / 8.5;   /* slightly taller than 16:9 */
+  min-height: 56vh;         /* never too small */
+  max-height: 88vh;         /* never too tall */
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.hero-content{ padding: 40px 0; }
+
+/* Ensure video fills the box without overflow */
+.hero-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Fallback for older browsers without aspect-ratio support */
+@supports not (aspect-ratio: 1 / 1){
+  .hero{
+    min-height: 68vh;
+    max-height: none;
+  }
+}
+
+/* Responsive tweaks for small screens */
+@media (max-width: 640px){
+  .hero{ aspect-ratio: 16 / 10; min-height: 60vh; max-height: 82vh; }
+  .hero-content{ padding: 28px 0; }
+}
+
+
+.hero{
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  min-height: 65vh;
+  max-height: 90vh;
+}
+.hero-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-content{
+  position: relative;
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* Responsive tweak for small screens */
+@media (max-width: 640px){
+  .hero{ min-height: 60vh; max-height: 80vh; }
+  .hero-content{ padding: 28px 0; }
+}
+
+
+/* ===== Hero layout fix (preserve centering & mobile) ===== */
+.hero{
+  position: relative;       /* keep anchor for absolutely positioned video */
+  width: 100%;
+  min-height: 64vh;         /* balanced height */
+  max-height: 88vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  margin: 0 auto;           /* ensure no left shift */
+}
+.hero-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-content{ padding: 40px 0; text-align: center; }
+
+@media (max-width: 640px){
+  .hero{ min-height: 60vh; max-height: 82vh; }
+  .hero-content{ padding: 28px 0; }
+}
+
+/* Safety: avoid accidental horizontal scroll on any element */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video { max-width: 100%; height: auto; display: block; }
+
+
+/* ===== Refined hero sizing: smaller video window ===== */
+.hero{
+  min-height: 52vh;   /* smaller window */
+  max-height: 72vh;   /* limit to avoid too tall */
+}
+@media (max-width: 640px){
+  .hero{ min-height: 46vh; max-height: 64vh; }
+}
+
+
+/* ===== Refined hero sizing: smaller width & height ===== */
+.hero{
+  max-width: 1280px;   /* limit width */
+  margin: 0 auto;      /* center horizontally */
+  min-height: 52vh;
+  max-height: 72vh;
+}
+@media (max-width: 640px){
+  .hero{ max-width: 100%; min-height: 46vh; max-height: 64vh; }
+}
+
+
+/* ===== Header typography & logo improvements ===== */
+
+/* Make hero headline larger and bolder */
+.hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-shadow: 0 3px 14px rgba(0,0,0,.55);
+}
+
+/* Make hero subtext a bit larger */
+.hero p {
+  font-size: clamp(16px, 2.4vw, 22px);
+  font-weight: 500;
+}
+
+/* Increase logo size in navbar */
+.brand img {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+}
+.brand span {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+
+/* ===== Header typography & logo boost ===== */
+/* Bigger hero headline */
+.hero .hero-content h1{
+  font-size: clamp(36px, 7vw, 64px);
+  line-height: 1.05;
+  letter-spacing: 0.2px;
+  font-weight: 800;
+}
+
+/* Slightly larger hero subtext */
+.hero .hero-content p{
+  font-size: clamp(16px, 2.2vw, 20px);
+}
+
+/* Bigger brand logo & wordmark in the top nav */
+.brand img{
+  height: 56px;
+  width: auto;
+  border-radius: 12px;
+}
+.brand span{
+  font-family:'Urbanist', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.2px;
+}
+
+.nav-inner{
+  padding: 14px 0;
+}
+
+/* Mobile adjustments so it doesn't overflow */
+@media (max-width: 860px){
+  .brand img{ height: 48px; }
+  .brand span{ font-size: 20px; }
+  .nav-inner{ padding: 12px 0; }
+}
+
+
+/* ===== Fancy hover effects for nav menu ===== */
+.nav-menu a{
+  position: relative;
+  transition: color 0.25s ease;
+}
+.nav-menu a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0%;
+  height:2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius:2px;
+  transition: width 0.3s ease;
+}
+.nav-menu a:hover{
+  color: var(--primary-700);
+}
+.nav-menu a:hover::after{
+  width:100%;
+}
+
+/* Buttons subtle hover lift */
+.btn-primary, .btn-ghost{
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+}
+.btn-primary:hover, .btn-ghost:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow), var(--glow);
+}
+
+
+/* ===== Visual & Usability Enhancements ===== */
+
+/* Spacing scale */
+:root{
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 14px;
+  --space-4: 18px;
+  --space-5: 24px;
+  --space-6: 32px;
+}
+
+/* Stronger bottom fade for hero for readability */
+.hero-overlay{
+  background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 40%, rgba(0,0,0,.20) 65%, rgba(0,0,0,.05) 100%);
+}
+
+/* Constrain hero text width for better line length */
+.hero .hero-content{
+  max-width: 920px;
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+/* Larger tap targets in nav */
+.nav-menu a{
+  padding-block: 10px;
+}
+
+/* Active state in nav (paired with JS scrollspy) */
+.nav-menu a.active{
+  color: var(--primary-700);
+}
+.nav-menu a.active::after{
+  width:100%;
+}
+
+/* Focus-visible styles for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline: 3px solid rgba(0,188,212,.55);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Card hover slightly stronger for affordance */
+.card:hover, .media:hover, .why-item:hover, .price-card:hover{
+  transform: translateY(-3px) scale(1.01);
+}
+
+/* Ensure equal-height pricing cards and bigger buttons */
+.pricing{
+  align-items: stretch;
+}
+.price-card{
+  display: flex;
+  flex-direction: column;
+}
+.price-card .btn{
+  margin-top: auto;
+}
+
+/* Make buttons noticeably bigger on mobile */
+@media (max-width: 640px){
+  .btn{ padding: 14px 18px; font-size: 16px; }
+  .nav-menu a{ padding-block: 12px; }
+}
+
+/* Smooth anchor scrolling for better UX */
+html{
+  scroll-behavior: smooth;
+}
+
+
+/* ===== Dark theme support ===== */
+:root{
+  color-scheme: light;
+  --transition-theme: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+/* Smooth theme transition */
+html, body, .card, .why-item, .price-card, .faq, .contact-form input, .contact-form textarea, .nav, .topbar, .footer{
+  transition: var(--transition-theme);
+}
+
+/* Auto-follow system preference unless user overrides */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: #0c1116;
+    --bg-alt: #0f151c;
+    --text: #e8eef5;
+    --muted: #a9b3bf;
+    --primary: #00bcd4;
+    --primary-700: #3dd5e7;
+    --accent: #00acc1;
+    --card: #111823;
+    --border: rgba(255,255,255,.08);
+    --shadow: 0 10px 24px rgba(0,0,0,.45);
+    --glow: 0 0 0 2px rgba(0,188,212,.18), 0 8px 24px rgba(0,188,212,.28);
+    color-scheme: dark;
+    background: #0c1116;
+  }
+}
+
+/* Explicit dark theme override */
+:root[data-theme="dark"]{
+  --bg: #0c1116;
+  --bg-alt: #0f151c;
+  --text: #e8eef5;
+  --muted: #a9b3bf;
+  --primary: #00bcd4;
+  --primary-700: #3dd5e7;
+  --accent: #00acc1;
+  --card: #111823;
+  --border: rgba(255,255,255,.08);
+  --shadow: 0 10px 24px rgba(0,0,0,.45);
+  --glow: 0 0 0 2px rgba(0,188,212,.18), 0 8px 24px rgba(0,188,212,.28);
+  color-scheme: dark;
+  background: #0c1116;
+}
+
+/* Apply backgrounds using variables */
+body{
+  background: linear-gradient(180deg, var(--bg) 0%, #0f1720 100%);
+}
+.section.alt{
+  background: linear-gradient(180deg, var(--bg-alt) 0%, #0f1720 100%);
+}
+.nav{ background: color-mix(in oklab, var(--card) 92%, transparent); }
+.topbar{ background: #0b1220; color: #bfefff; }
+.topbar a{ color: #8af5ff; }
+.footer{ background: #0b1220; color: #b7c6d6; border-top: 1px solid var(--border); }
+
+.hero-overlay{
+  background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
+}
+
+/* Inputs & cards in dark */
+.contact-form input,.contact-form textarea{ background: var(--card); color: var(--text); border-color: var(--border); }
+.card,.why-item,.price-card,.faq{ background: var(--card); border-color: var(--border); }
+
+/* Links and nav */
+.nav-menu a{ color: var(--text); }
+.nav-menu a:hover{ color: var(--primary-700); }
+
+/* Theme toggle button */
+.theme-toggle{
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  margin-left: auto;
+  box-shadow: var(--shadow);
+}
+.theme-toggle:hover{ box-shadow: var(--shadow), var(--glow); transform: translateY(-1px); transition: transform .2s ease, box-shadow .2s ease; }
+.theme-toggle:focus-visible{ outline: 3px solid rgba(0,188,212,.55); outline-offset: 2px; }
+@media (max-width: 860px){ .theme-toggle{ order: 2; } }
